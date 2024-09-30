@@ -1,0 +1,33 @@
+---
+
+- name: Install Gitlab
+  hosts: atelier
+  become: true
+
+  tasks:
+    - name: Installing dependencies
+      apt:
+        name:
+          - curl
+          - openssh-server
+          - ca-certificates
+          - tzdata
+          - perl
+          - rsync
+        state: present
+    
+    - name: Adding gitlab to Repositories
+      shell: curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | sudo bash
+    
+    - name: Installing Gitlab via APT (Can take ~5 minutes)
+      apt:
+        name: gitlab-ee
+        state: present
+    
+    - name: Copy config file
+      copy:
+        src: files/gitlab.rb
+        dest: /etc/gitlab/gitlab.rb
+        owner: root
+        group: root
+        mode: "0600"
