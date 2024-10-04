@@ -1,6 +1,1 @@
-[pve]
-172.16.50.10
-atelier # You can use Hosts in your ssh config
-
-[local]
-localhost
+atelier

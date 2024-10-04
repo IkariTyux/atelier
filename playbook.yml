@@ -14,20 +14,32 @@
           - tzdata
           - perl
           - rsync
+          - git
         state: present
     
     - name: Adding gitlab to Repositories
       shell: curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | sudo bash
     
-    - name: Installing Gitlab via APT (Can take ~5 minutes)
+    - name: Installing Gitlab via APT (Can take ~5 min)
       apt:
         name: gitlab-ee
         state: present
-    
-    - name: Copy config file
+     
+    - name: Copying config file
       copy:
         src: files/gitlab.rb
         dest: /etc/gitlab/gitlab.rb
         owner: root
         group: root
-        mode: "0600"
+        mode: "0640"
+
+    - name: Copying SSL certificates
+      copy:
+        src: files/ssl/
+        dest: /etc/gitlab/ssl
+        owner: root
+        group: root
+        mode: "0640"
+
+    - name: Re-configuring gitlab (Can take ~5 min)
+      shell: gitlab-ctl reconfigure
