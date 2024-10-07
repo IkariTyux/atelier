@@ -2,7 +2,7 @@
 
 For Mr. Sylvain. The repo for the CI/CD course.
 
-This repo installs Gitlab with the *"Gitlab Container Repository"* plugin.
+This repo installs Gitlab with the *"Gitlab Container Registery"* plugin.
 
 Used technologies/projects :
 - Ansible
